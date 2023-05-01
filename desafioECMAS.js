@@ -13,7 +13,7 @@ class ProductManager {
           if (searching){
              return searching;
           } else {
-            return  console.log("Not exists");  
+            return  console.log("Not found");  
           }
         } 
 
@@ -22,7 +22,7 @@ class ProductManager {
         let maxId= 0;  // con variable privada no estaria perdiendo el 0
         for (let i=0 ; i < this.products.length; i++ ) { 
         const prod = this.products [i];
-        
+
         if (prod.id > maxId){ 
                 maxId=prod.id ; 
              }}
@@ -31,18 +31,18 @@ class ProductManager {
 
     addProduct( title ,description ,price ,thumbnail ,code ,stock) 
         { 
-        if (this.products.find(prod => prod.code === code)) {
-         return console.log( `El codigo ${code} esta repetido`); 
+        if (this.products.find(prod => prod.code === code)) {  // permite encontrar codigo repetido
+         return console.log( `The code ${code} is repeated`); 
              }
     
 
      let newproducts= {id: this.#createId(), title,description, price,thumbnail, code ,stock };
 
-     if (!Object.values(newproducts).includes(undefined)) {
+     if (!Object.values(newproducts).includes(undefined)) {  // todos los campos son obligatorios tienen un valor, si no falta un valor todo OK, sino sera un valor UNDEFINED. 
 
      this.products = [...this.products, newproducts]; // .........uso de expredOperator
 
-     } else {  console.log("falta un campo")}
+     } else {  console.log("All fields are required")}
 
      return  "addObjet"
 
