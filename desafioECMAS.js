@@ -9,97 +9,53 @@ class ProductManager {
     }
 
     getProductById(id) {
-        const searching = this.products.find(p => p.id == id);
+        const searching = this.products.find(prod => prod.id === id);
           if (searching){
              return searching;
           } else {
-            return undefined;
+            return  console.log("Not exists");  
           }
         } 
 
-
-        createId (){
-            let maxId= 0;
-            for (let i=0 ; i < this.products.length; i++ ) {  
-            const prod = this.products [i];
-            if (prod.id > maxId) {
-               maxId=prod.id ;
-            }   
-        }
+    #createId ()
+        { 
+        let maxId= 0;  // con variable privada no estaria perdiendo el 0
+        for (let i=0 ; i < this.products.length; i++ ) { 
+        const prod = this.products [i];
+        
+        if (prod.id > maxId){ 
+                maxId=prod.id ; 
+             }}
             return ++maxId;
-        }
+         }
+
+    addProduct( title ,description ,price ,thumbnail ,code ,stock) 
+        { 
+        if (this.products.find(prod => prod.code === code)) {
+         return console.log( `El codigo ${code} esta repetido`); 
+             }
     
 
-        addProduct(title ,description ,price ,thumbnail ,code ,stock) 
-  
-    { title= title || "required field";
-      description= description || "required field";
-      price= price || "required field";
-      thumbnail= thumbnail || "required field"; 
-      code = code ; 
-      stock= stock ?? "required field"; //....................... uso del nullish para que tome el 0.
-      
-      let newproducts= {title,description, price,thumbnail, code ,stock, id: this.createId() };
-      
+     let newproducts= {id: this.#createId(), title,description, price,thumbnail, code ,stock };
+
+     if (!Object.values(newproducts).includes(undefined)) {
+
      this.products = [...this.products, newproducts]; // .........uso de expredOperator
 
-    
+     } else {  console.log("falta un campo")}
 
-     return true;
-    }
+     return  "addObjet"
 
-    
-            
+    }          
 }
 
 const productM = new ProductManager() ;
 
-productM.addProduct(
-    "shorts", 
-    "T. XL", 
-    1000, 
-    "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/530cd80f75104674bdf2acc60111e0a5_9366/shorts-aeroready-designed-2-move-tejidos-sport.jpg",
-    "abc124",
-    20
-    );
-
-productM.addProduct(
-        "pants", 
-        "T. L", 
-        2000, 
-        "https://alcatraz.com.ar/wp-content/uploads/2017/11/74369_070_s16_03.jpg",
-        "abc125",
-        30
-        );
-
- 
-productM.addProduct(
-         "",   //......................................................... uso de campo requerido.
-        "T. M", 
-        3000, 
-        "https://img.todo-memes.com/meme-de/ups-donde-esta-530085.jpg",
-        "abc126",
-        40
-        ); 
-        
-        productM.addProduct(
-            "blue jeans",   
-            "T. M",
-           6000, 
-           "https://www.vitamina.com.ar/media/wysiwyg/Recto-JEAN_MARLOW_CANE_PLAQUE.jpg",
-           "abc127",
-           0     // .....................................................toma el 0 por el nullish.
-           
-           ); 
-           
-           productM.addProduct(
-            "shirt", 
-            "T. SM", 
-            1200, 
-            "https://taverniti.vteximg.com.br/arquivos/ids/243813-2000-2500/19659_601X1.jpg?v=637940116848830000",
-            "abc124",
-            50
-            );
-
+productM.addProduct("shorts", "T. XL", 1000, "thumbnail 1", "abc124", 20 );
+productM.addProduct("shirt", "T. SL", 2000, "thumbnail 2", "abc124", 30 ); // uso de codigo repetido
+productM.addProduct("blue jean", "T. ML", 1000, "thumbnail 3", "abc125" ); // falta un valor   
+productM.addProduct("pats", "T. XL", 3000, "thumbnail 4", "abc126", 50 );
     
-    console.log(productM.products);
+
+    console.log(productM.products); // testing...
+    productM.getProductById(2) // testing...
