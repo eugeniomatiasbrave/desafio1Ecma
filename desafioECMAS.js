@@ -13,11 +13,8 @@ class ProductManager {
         const searching = this.#products.find(prod => prod.id === id); 
         searching??console.log("Not found");
      }    
-
-        
-
-    #createId ()
-        { 
+   
+    #createId () { 
         let maxId= 0;  // con variable privada no estaria perdiendo el 0
         for (let i=0 ; i < this.#products.length; i++ ) { 
         const prod = this.#products [i];
@@ -28,13 +25,12 @@ class ProductManager {
             return ++maxId;
          }
 
-    addProduct( title ,description ,price ,thumbnail ,code ,stock) 
-        { 
+    addProduct( title ,description ,price ,thumbnail ,code ,stock) {
+
           if (this.#products.find(prod => prod.code === code)) {  // permite encontrar codigo repetido
           return console.log( `The code ${code} is repeated`); 
              }
     
-
           let newproducts= {id: this.#createId(), title,description, price,thumbnail, code ,stock };
 
           if (!Object.values(newproducts).includes(undefined)) {  // todos los campos son obligatorios tienen un valor, si no falta un valor todo OK, sino sera un valor UNDEFINED. 
@@ -44,7 +40,6 @@ class ProductManager {
         } else {  console.log("All fields are required")}
 
      return  newproducts;
-
     }          
 }
 
@@ -56,6 +51,6 @@ productM.addProduct("blue jean", "T. ML", 1000, "thumbnail 3", "abc125" ); // fa
 productM.addProduct("pats", "T. XL", 3000, "thumbnail 4", "abc126", 50 );
     
 
-    console.log(productM.products); // testing...
-    productM.getProductById(9) // testing...
+console.log(productM.products); // testing...
+productM.getProductById(9) // testing...
     
